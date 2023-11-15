@@ -29,6 +29,6 @@ message NamesList{
   repeated string name = 1;
 }
 
-message MessagesList {
+message MessageList {
   repeated string message = 1;
 }
