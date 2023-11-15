@@ -14,21 +14,18 @@ const (
 func main() {
 	conn, err := grpc.Dial("localhost"+port, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
-		log.Fatalf("did not connect: %v", err)
+		log.Fatalf("Did not connect: %v", err)
 	}
-	defer func(conn *grpc.ClientConn) {
-		err := conn.Close()
-		if err != nil {
-			log.Fatalf("did not close: %v", err)
-		}
-	}(conn)
+	defer conn.Close()
 
 	client := pb.NewGreetServiceClient(conn)
 
 	names := &pb.NamesList{
-		Name: []string{"Naman", "Alice", "BoB"},
+		Names: []string{"Naman", "Alice", "Bob"},
 	}
 
-	callSayHello(client) // unary api
+	//callSayHello(client)
 	callSayHelloServerStream(client, names)
+	//callSayHelloClientStream(client, names)
+	//callSayHelloBidirectionalStream(client, names)
 }
